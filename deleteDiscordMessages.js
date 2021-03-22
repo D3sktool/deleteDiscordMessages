@@ -149,8 +149,8 @@
      */
     async function deleteMessages(authToken, authorId, guildId, channelId, minId, maxId, content,hasLink, hasFile, includeNsfw, includePinned, extLogger, stopHndl, onProgress) {
         const start = new Date();
-        let deleteDelay = 100;
-        let searchDelay = 100;
+        let deleteDelay = 300;
+        let searchDelay = 300;
         let delCount = 0;
         let failCount = 0;
         let avgPing;
@@ -230,7 +230,7 @@
                     const w = (await resp.json()).retry_after;
                     throttledCount++;
                     throttledTotalTime += w;
-                    searchDelay += w; // increase delay
+                   // searchDelay += w; // increase delay
                     log.warn(`Being rate limited by the API for ${w}ms! Increasing search delay...`);
                     printDelayStats();
                     log.verb(`Cooling down for ${w * 2}ms before retrying...`);
@@ -306,7 +306,7 @@
                             const w = (await resp.json()).retry_after;
                             throttledCount++;
                             throttledTotalTime += w;
-                            deleteDelay = w; // increase delay
+                            //deleteDelay = w; // increase delay
                             log.warn(`Being rate limited by the API for ${w}ms! Adjusted delete delay to ${deleteDelay}ms.`);
                             printDelayStats();
                             log.verb(`Cooling down for ${w*2}ms before retrying...`);
